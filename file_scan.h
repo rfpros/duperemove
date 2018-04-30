@@ -9,6 +9,7 @@ extern unsigned int blocksize;
 extern int do_lookup_extents;
 extern unsigned int io_threads;
 extern int skip_zeroes;
+extern int fdupes_mode;
 /*
  * Returns nonzero on fatal errors only
  */

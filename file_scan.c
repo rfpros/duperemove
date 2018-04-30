@@ -232,7 +232,8 @@ static int __add_file(const char *name, struct stat *st,
 		goto out;
 	}
 
-	if (st->st_size < blocksize) {
+	if ((!fdupes_mode && st->st_size < blocksize) ||
+	    (fdupes_mode && st->st_size == 0)) {
 		vprintf("Skipping small file %s\n", name);
 		goto out;
 	}

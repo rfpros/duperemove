@@ -57,11 +57,11 @@ int recurse_dirs = 0;
 int v2_hashfile = 0;
 int dedupe_same_file = 1;
 int skip_zeroes = 0;
+int fdupes_mode = 0;
 
 int target_rw = 1;
 static int version_only = 0;
 static int help_option = 0;
-static int fdupes_mode = 0;
 static int stdin_filelist = 0;
 static unsigned int list_only_opt = 0;
 static unsigned int rm_only_opt = 0;

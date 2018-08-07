@@ -111,6 +111,10 @@ Remove file from the db and exit. Can be specified multiple
 times. Duperemove will read the list from standard input if a hyphen
 (-) is provided. Requires the \fB\--hashfile\fR option.
 
+This option is normally not needed, Duperemove will automatically
+manage the files referenced by a \fIhashfile\fR. See the \fB\--hashfile\fR
+option for more details.
+
 \fBNote:\fR If you are piping filenames from another duperemove instance it
 is advisable to do so into a temporary file first as running duperemove
 simultaneously on the same hashfile may corrupt that hashfile.

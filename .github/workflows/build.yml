@@ -21,7 +21,7 @@ jobs:
           key: apt-cache-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             apt-cache-
-      - name: Download packages
+      - name: Install packages
         run: |
           sudo apt update
           sudo apt install -y -o Acquire::Retries=50 \
@@ -39,5 +39,12 @@ jobs:
       - name: Build package
         run: |
              cd duperemove-lrd-0.0.${{ github.run_number }}
-             dpkg-buildpackage
+             PREFIX=/usr/bin dpkg-buildpackage
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with: 
+          files: |
+             duperemove-lrd-0.0.${{ github.run_number }}.deb
+
 

@@ -1,0 +1,35 @@
+name: Build
+
+on: push
+
+env:
+  VERSIONS: v.0.0.${{ github.run_number }}
+
+jobs:
+
+  cache:
+    name: Cache
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Cache permissions
+        run: |
+          sudo chown $(id -un) /var/cache/apt/archives
+      - name: Cache packages
+        uses: actions/cache@v3
+        with:
+          path: /var/cache/apt/archives/*.deb
+          key: apt-cache-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            apt-cache-
+      - name: Download packages
+        run: |
+          sudo apt update
+          sudo apt install -y -d -o Acquire::Retries=50 \
+              git build-essential binutils lintian debhelper \
+              dh-make devscripts libsqlite3-dev libglib2.0-dev 
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          path: duperemove-lrd-0.0.${{ github.run_number }}
+          

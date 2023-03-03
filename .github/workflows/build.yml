@@ -40,6 +40,10 @@ jobs:
         run: |
              cd duperemove-lrd-0.0.${{ github.run_number }}
              PREFIX=/usr/bin dpkg-buildpackage
+      - name: Check outputs
+        run: |
+                ls
+                pwd
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')

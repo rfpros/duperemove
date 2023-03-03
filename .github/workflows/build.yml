@@ -7,8 +7,8 @@ env:
 
 jobs:
 
-  cache:
-    name: Cache
+  build:
+    name: Build
     runs-on: ubuntu-22.04
     steps:
       - name: Cache permissions
@@ -32,4 +32,12 @@ jobs:
         with:
           fetch-depth: 0
           path: duperemove-lrd-0.0.${{ github.run_number }}
-          
+      - name: DH make
+        run: |
+             cd duperemove-lrd-0.0.${{ github.run_number }}
+             dh_make -y -s
+      - name: Build package
+        run: |
+             cd duperemove-lrd-0.0.${{ github.run_number }}
+             dpkg-buildpackage
+

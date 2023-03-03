@@ -24,7 +24,7 @@ jobs:
       - name: Download packages
         run: |
           sudo apt update
-          sudo apt install -y -d -o Acquire::Retries=50 \
+          sudo apt install -y -o Acquire::Retries=50 \
               git build-essential binutils lintian debhelper \
               dh-make devscripts libsqlite3-dev libglib2.0-dev 
       - name: Check out code

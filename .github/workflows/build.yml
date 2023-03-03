@@ -35,7 +35,7 @@ jobs:
       - name: DH make
         run: |
              cd duperemove-lrd-0.0.${{ github.run_number }}
-             dh_make -y -s
+             dh_make -y -s --createorig
       - name: Build package
         run: |
              cd duperemove-lrd-0.0.${{ github.run_number }}

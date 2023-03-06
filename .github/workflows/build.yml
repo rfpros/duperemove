@@ -10,8 +10,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-20.04
-    env:
-      DIRECTORY: duperemovelrd-${{ env.VER }} 
     steps:
       - name: Cache permissions
         run: |
@@ -29,6 +27,9 @@ jobs:
           sudo apt install -y -o Acquire::Retries=50 \
               git build-essential binutils lintian debhelper \
               dh-make devscripts libsqlite3-dev libglib2.0-dev 
+      - name: Directory name
+        run: |
+                echo "DIRECTORY=duperemovelrd-${{ env.VER }}" >> $GITHUB_ENV
       - name: Check out code
         uses: actions/checkout@v3
         with:

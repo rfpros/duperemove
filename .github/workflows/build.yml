@@ -4,13 +4,14 @@ on: push
 
 env:
   VER: 0.12.${{ github.run_number }}
-  DIRECTORY: duperemovelrd-${{ env.VER }} 
 
 jobs:
 
   build:
     name: Build
     runs-on: ubuntu-20.04
+    env:
+      DIRECTORY: duperemovelrd-${{ env.VER }} 
     steps:
       - name: Cache permissions
         run: |

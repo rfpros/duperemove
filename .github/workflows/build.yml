@@ -27,8 +27,10 @@ jobs:
           sudo apt install -y -o Acquire::Retries=50 \
               git build-essential binutils lintian debhelper \
               dh-make devscripts libsqlite3-dev libglib2.0-dev 
-      - name: Directory name
+      - name: Directory and package name
         run: |
+                echo "We use this because interpolation is not valid in definition of env:"
+                echo "See https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#environment-files"
                 echo "DIRECTORY=duperemovelrd-${{ env.VER }}" >> $GITHUB_ENV
                 echo "PACKAGE=duperemovelrd_${{ env.VER }}-1_amd64.deb">> $GITHUB_ENV
       - name: Check out code
@@ -46,9 +48,6 @@ jobs:
              PREFIX=/ dpkg-buildpackage
       - name: Check outputs
         run: |
-                ls
-                pwd
-                df
                 dpkg -c ${{ env.PACKAGE }}
       - name: Release
         uses: softprops/action-gh-release@v1

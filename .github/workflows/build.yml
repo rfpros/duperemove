@@ -1,0 +1,55 @@
+name: Build
+
+on: push
+
+env:
+  VER: 0.12.${{ github.run_number }}
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Install packages
+        run: |
+          sudo apt update
+          sudo apt install -y -o Acquire::Retries=50 \
+              git build-essential binutils lintian debhelper \
+              dh-make devscripts libsqlite3-dev libglib2.0-dev 
+      - name: Directory and package name
+        run: |
+                echo "We use this because interpolation is not valid in definition of env:"
+                echo "See https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#environment-files"
+                echo "DIRECTORY=duperemovelrd-${{ env.VER }}" >> $GITHUB_ENV
+                echo "PACKAGE=duperemovelrd_${{ env.VER }}-1_amd64.deb">> $GITHUB_ENV
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          path: ${{ env.DIRECTORY }}
+      - name: DH make
+        run: |
+             cd ${{ env.DIRECTORY }}
+             dh_make -y -s --createorig
+      - name: Build package
+        run: |
+             cd ${{ env.DIRECTORY}}
+             PREFIX=/ dpkg-buildpackage
+      - name: Check outputs
+        run: |
+                dpkg -c ${{ env.PACKAGE }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with: 
+          files: |
+             ${{ env.PACKAGE }}
+      - name: Install
+        run: |
+                sudo dpkg --install ${{ env.PACKAGE }}
+      - name: Test run
+        run: |
+                duperemove --help
+
+

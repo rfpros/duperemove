@@ -34,11 +34,11 @@ jobs:
           path: duperemove-lrd-${{ env.VER }}
       - name: DH make
         run: |
-             cd duperemove-lrd-$VER
+             cd duperemove-lrd-${VER}
              dh_make -y -s --createorig
       - name: Build package
         run: |
-             cd duperemove-lrd-$VER
+             cd duperemove-lrd-${VER}
              PREFIX=/ dpkg-buildpackage
       - name: Check outputs
         run: |

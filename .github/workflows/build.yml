@@ -55,7 +55,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with: 
           files: |
-             ${{ env.PACKAGE }]
+             ${{ env.PACKAGE }}
       - name: Install
         run: |
                 sudo dpkg --install ${{ env.PACKAGE }}

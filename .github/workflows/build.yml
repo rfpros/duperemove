@@ -3,7 +3,7 @@ name: Build
 on: push
 
 env:
-  VER: 0.0.${{ github.run_number }}
+  VER: 0.12.${{ github.run_number }}
 
 jobs:
 

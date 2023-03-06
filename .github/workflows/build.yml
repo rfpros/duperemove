@@ -39,7 +39,7 @@ jobs:
       - name: Build package
         run: |
              cd duperemove-lrd-0.0.${{ github.run_number }}
-             VER=0.0.{{ github.run_number }} PREFIX=/ dpkg-buildpackage
+             VER=0.0.${{ github.run_number }} PREFIX=/ dpkg-buildpackage
       - name: Check outputs
         run: |
                 ls

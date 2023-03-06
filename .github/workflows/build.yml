@@ -11,16 +11,6 @@ jobs:
     name: Build
     runs-on: ubuntu-20.04
     steps:
-      - name: Cache permissions
-        run: |
-          sudo chown $(id -un) /var/cache/apt/archives
-      - name: Cache packages
-        uses: actions/cache@v3
-        with:
-          path: /var/cache/apt/archives/*.deb
-          key: apt-cache-${{ github.run_id }}-${{ github.run_attempt }}
-          restore-keys: |
-            apt-cache-
       - name: Install packages
         run: |
           sudo apt update

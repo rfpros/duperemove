@@ -47,7 +47,7 @@ jobs:
                 df
       - name: Install
         run: |
-                dpkg --install duperemove-lrd_0.0.${{ github.run_number }}-1_amd64.deb
+                sudo dpkg --install duperemove-lrd_0.0.${{ github.run_number }}-1_amd64.deb
       - name: Test run
         run: |
                 duperemove --help

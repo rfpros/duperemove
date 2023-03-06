@@ -30,6 +30,7 @@ jobs:
       - name: Directory name
         run: |
                 echo "DIRECTORY=duperemovelrd-${{ env.VER }}" >> $GITHUB_ENV
+                echo "PACKAGE=duperemovelrd_${{ env.VER }}-1_amd64.deb">> $GITHUB_ENV
       - name: Check out code
         uses: actions/checkout@v3
         with:
@@ -48,16 +49,16 @@ jobs:
                 ls
                 pwd
                 df
-                dpkg -c duperemovelrd_${{ env.VER }}-1_amd64.deb
+                dpkg -c ${{ env.PACKAGE }}
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with: 
           files: |
-             duperemovelrd_${{ env.VER }}-1_amd64.deb
+             ${{ env.PACKAGE }]
       - name: Install
         run: |
-                sudo dpkg --install duperemovelrd_${{ env.VER }}-1_amd64.deb
+                sudo dpkg --install ${{ env.PACKAGE }}
       - name: Test run
         run: |
                 duperemove --help
